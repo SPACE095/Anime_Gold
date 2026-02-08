@@ -51,6 +51,26 @@ body::after {
   z-index: -1;
 }
 
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(246, 196, 83, 0.18) 0%,
+    rgba(47, 212, 198, 0.1) 35%,
+    rgba(15, 22, 34, 0) 70%
+  );
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.8;
+  filter: blur(8px);
+  mix-blend-mode: screen;
+}
+
 img {
   max-width: 100%;
   display: block;
@@ -170,8 +190,11 @@ a {
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   gap: 40px;
   align-items: center;
-  background: linear-gradient(120deg, rgba(13, 18, 28, 0.9), rgba(10, 15, 20, 0.7)),
-    url("Anime Boy With Yellow Glowing Eyes Desktop Wallpaper 4k.jpg") center/cover no-repeat;
+  background-image: linear-gradient(120deg, rgba(13, 18, 28, 0.9), rgba(10, 15, 20, 0.7)),
+    url("Anime Boy With Yellow Glowing Eyes Desktop Wallpaper 4k.jpg");
+  background-size: auto, cover;
+  background-position: center, center calc(50% + var(--hero-offset, 0px));
+  background-repeat: no-repeat;
   border-bottom: 1px solid var(--border);
 }
 
@@ -856,6 +879,23 @@ a {
   animation-delay: var(--delay, 0s);
 }
 
+body.js .reveal,
+body.js .feature-card,
+body.js .news-card,
+body.js .calendar-card,
+body.js .genre-card {
+  opacity: 0;
+  transform: translateY(16px) scale(0.98);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform;
+  animation: none;
+}
+
+body.js .is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -915,5 +955,18 @@ a {
   .cta {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .cursor-glow {
+    display: none;
   }
 }
