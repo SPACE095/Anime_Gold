@@ -1,0 +1,160 @@
+﻿<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime-Gold | اكتشف الأنمي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Chakra+Petch:wght@600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="Anime.css">
+</head>
+<body data-page="discover">
+  <a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+  <header class="site-header">
+    <div class="brand">
+      <a class="brand-logo" href="a.html"><img src="logo.svg" alt="Anime-Gold logo"><span>Anime-Gold</span></a>
+      <span class="brand-tag">بوابتك الذهبية لعالم الأنمي</span>
+    </div>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-links" id="site-nav">
+      <a href="a.html">الرئيسية</a>
+      <a href="anime.html" class="active">اكتشف</a>
+            <a href="player.html">المشغل</a>
+      <a href="genres.html">الأنواع</a>
+      <a href="watchlist.html">قائمتي</a>
+      <a href="news.html">الأخبار</a>
+      <a href="about.html">عنّا</a>
+      <a href="contact.html" class="nav-cta">تواصل</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero hero-small discover-hero">
+      <div class="hero-content">
+        <p class="eyebrow">المكتبة الذهبية</p>
+        <h1>اكتشف أنمي يناسب مزاجك</h1>
+        <p class="lead">فلترة مباشرة، بحث سريع، وترشيحات مبنية على الأنواع المفضلة.</p>
+      </div>
+    </section>
+
+    <section class="section filters">
+      <div class="filters-bar">
+        <label class="field">
+          <span>بحث</span>
+          <input id="searchInput" type="search" placeholder="جرب: أكشن، دراما، نينجا...">
+        </label>
+        <label class="field">
+          <span>النوع</span>
+          <select id="genreFilter">
+            <option value="all">كل الأنواع</option>
+            <option value="action">أكشن</option>
+            <option value="adventure">مغامرة</option>
+            <option value="fantasy">فانتازيا</option>
+            <option value="sci-fi">خيال علمي</option>
+            <option value="romance">رومانسي</option>
+            <option value="slice-of-life">شريحة حياة</option>
+            <option value="sports">رياضة</option>
+            <option value="horror">رعب</option>
+            <option value="thriller">إثارة</option>
+            <option value="mystery">غموض</option>
+            <option value="mecha">ميكا</option>
+            <option value="music">موسيقى</option>
+            <option value="comedy">كوميدي</option>
+            <option value="drama">دراما</option>
+            <option value="historical">تاريخي</option>
+            <option value="supernatural">خارق</option>
+            <option value="isekai">إيسيكاي</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>النوع الفني</span>
+          <select id="typeFilter">
+            <option value="all">الكل</option>
+            <option value="TV">مسلسل</option>
+            <option value="Movie">فيلم</option>
+            <option value="OVA">OVA</option>
+            <option value="ONA">ONA</option>
+            <option value="Special">خاصة</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>الحالة</span>
+          <select id="statusFilter">
+            <option value="all">الكل</option>
+            <option value="Ongoing">مستمر</option>
+            <option value="Completed">مكتمل</option>
+            <option value="Hiatus">متوقف</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>الحقبة</span>
+          <select id="eraFilter">
+            <option value="all">الكل</option>
+            <option value="classic">كلاسيكي</option>
+            <option value="2000s">الألفينات</option>
+            <option value="2010s">2010s</option>
+            <option value="2020s">حديث</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>الترتيب</span>
+          <select id="sortFilter">
+            <option value="suggested">مقترح</option>
+            <option value="score">الأعلى تقييما</option>
+            <option value="title">أبجدي</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="filter-chips">
+        <button class="chip filter-chip" data-genre="action">أكشن</button>
+        <button class="chip filter-chip" data-genre="fantasy">فانتازيا</button>
+        <button class="chip filter-chip" data-genre="romance">رومانسي</button>
+        <button class="chip filter-chip" data-genre="sports">رياضة</button>
+        <button class="chip filter-chip" data-genre="mystery">غموض</button>
+        <button class="chip filter-chip" data-genre="sci-fi">خيال علمي</button>
+      </div>
+
+      <div class="results-line">
+        <span id="resultCount">0 نتيجة</span>
+        <button id="resetFilters" class="btn ghost small">إعادة ضبط</button>
+      </div>
+    </section>
+
+    <section class="section">
+      <div id="animeGrid" class="grid cards"></div>
+      <noscript>الرجاء تفعيل JavaScript لعرض قائمة الأنمي.</noscript>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <h4>Anime-Gold</h4>
+        <p>استكشف مكتبة الأنمي الذهبية كاملة.</p>
+      </div>
+      <div>
+        <h4>روابط</h4>
+        <a href="genres.html">الأنواع</a>
+        <a href="watchlist.html">قائمتي</a>
+        <a href="news.html">الأخبار</a>
+      </div>
+      <div>
+        <h4>تواصل</h4>
+        <a href="contact.html">مراسلة مباشرة</a>
+        <a href="mailto:anime-gold@email.com">anime-gold@email.com</a>
+      </div>
+    </div>
+    <p class="footer-note">© 2026 Anime-Gold. جميع الحقوق محفوظة.</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
+
+
+

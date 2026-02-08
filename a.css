@@ -1,0 +1,50 @@
+header{
+   background-image: url(Anime\ Boy\ With\ Yellow\ Glowing\ Eyes\ Desktop\ Wallpaper\ 4k.jpg);
+   height: 650px;
+   background-size: cover;
+}
+*{
+   color: goldenrod;
+}
+.body{
+   color: goldenrod;
+}
+ul{
+   list-style-type: none;
+   display: flex;
+
+}
+a{
+   text-decoration: none;
+   padding: 10px;
+   color: goldenrod;
+}
+.BMW{
+   display: flex;
+   justify-content: space-around;
+}
+.logo{
+   font-size: 35px;
+   padding-top: 10px;
+}
+.ba{
+   background-color: black;
+   border-radius: 15px;
+   
+}
+.content{
+   padding-left: 200px;
+   padding-top: 250px;
+   
+}
+footer{
+   background-color: black;
+   height: 100px;
+}
+table{
+   width: 100%;
+
+}
+td{
+   text-align: center;
+}

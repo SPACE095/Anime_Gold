@@ -1,0 +1,1070 @@
+﻿const GENRE_LABELS = {
+  action: "أكشن",
+  adventure: "مغامرة",
+  fantasy: "فانتازيا",
+  "sci-fi": "خيال علمي",
+  romance: "رومانسي",
+  "slice-of-life": "شريحة حياة",
+  sports: "رياضة",
+  horror: "رعب",
+  thriller: "إثارة",
+  mystery: "غموض",
+  mecha: "ميكا",
+  music: "موسيقى",
+  comedy: "كوميدي",
+  drama: "دراما",
+  historical: "تاريخي",
+  supernatural: "خارق",
+  isekai: "إيسيكاي"
+};
+
+const TYPE_LABELS = {
+  TV: "مسلسل",
+  Movie: "فيلم",
+  OVA: "OVA",
+  ONA: "ONA",
+  Special: "خاصة"
+};
+
+const STATUS_LABELS = {
+  Ongoing: "مستمر",
+  Completed: "مكتمل",
+  Hiatus: "متوقف"
+};
+
+const ERA_LABELS = {
+  classic: "كلاسيكي",
+  "2000s": "الألفينات",
+  "2010s": "2010s",
+  "2020s": "حديث"
+};
+
+const OFFICIAL_PLATFORMS = [
+  {
+    id: "crunchyroll",
+    label: "Crunchyroll",
+    url: (title) => `https://www.crunchyroll.com/search?q=${encodeURIComponent(title)}`
+  },
+  {
+    id: "netflix",
+    label: "Netflix",
+    url: (title) => `https://www.netflix.com/search?q=${encodeURIComponent(title)}`
+  },
+  {
+    id: "hidive",
+    label: "HIDIVE",
+    url: (title) => `https://www.hidive.com/search?q=${encodeURIComponent(title)}`
+  },
+  {
+    id: "hulu",
+    label: "Hulu",
+    url: (title) => `https://www.hulu.com/search?q=${encodeURIComponent(title)}`
+  },
+  {
+    id: "prime",
+    label: "Prime Video",
+    url: (title) =>
+      `https://www.primevideo.com/search/ref=atv_nb_sr?phrase=${encodeURIComponent(title)}`
+  }
+];
+
+const getTrailerThumb = (id) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+
+const ANIME_DATA = [
+  {
+    id: "naruto",
+    title: "Naruto",
+    jp: "ナルト",
+    tagline: "إرادة لا تنكسر وسط معارك النينجا.",
+    description: "رحلة طويلة مليئة بالتحديات، الصداقة، والإصرار على تحقيق الحلم.",
+    genres: ["action", "adventure", "supernatural"],
+    type: "TV",
+    status: "Completed",
+    era: "2000s",
+    score: 8.3,
+    episodes: "طويل",
+    duration: "23د",
+    poster: "images (1).jpeg",
+    palette: ["#f6c453", "#ff7b54"],
+    tags: ["نينجا", "شونين", "قتال"]
+  },
+  {
+    id: "one-piece",
+    title: "One Piece",
+    jp: "ワンピース",
+    tagline: "مغامرة بحرية للعثور على الكنز الأسطوري.",
+    description: "طاقم قبعة القش في رحلة مليئة بالمفاجآت، الجزر، والأحلام الكبيرة.",
+    genres: ["action", "adventure", "fantasy"],
+    type: "TV",
+    status: "Ongoing",
+    era: "2000s",
+    score: 9.1,
+    episodes: "طويل",
+    duration: "24د",
+    palette: ["#ffdd59", "#ff9f1a"],
+    tags: ["قراصنة", "مغامرة", "طاقم"]
+  },
+  {
+    id: "attack-on-titan",
+    title: "Attack on Titan",
+    jp: "進撃の巨人",
+    tagline: "البشر ضد العمالقة في عالم قاسٍ.",
+    description: "صراع ملحمي للبقاء مع أسرار تتكشف تدريجياً.",
+    genres: ["action", "drama", "mystery"],
+    type: "TV",
+    status: "Completed",
+    era: "2010s",
+    score: 9.0,
+    episodes: "متوسط",
+    duration: "24د",
+    palette: ["#64748b", "#1f2937"],
+    tags: ["عمالقة", "حرب", "تشويق"]
+  },
+  {
+    id: "demon-slayer",
+    title: "Demon Slayer",
+    jp: "鬼滅の刃",
+    tagline: "سيوف، شياطين، وقلب لا ينهزم.",
+    description: "رحلة مؤثرة لإنقاذ العائلة وسط معارك مذهلة بصرياً.",
+    genres: ["action", "historical", "supernatural"],
+    type: "TV",
+    status: "Ongoing",
+    era: "2010s",
+    score: 8.7,
+    episodes: "متوسط",
+    duration: "24د",
+    palette: ["#fca5a5", "#ef4444"],
+    tags: ["شياطين", "سيوف", "عائلة"]
+  },
+  {
+    id: "jujutsu-kaisen",
+    title: "Jujutsu Kaisen",
+    jp: "呪術廻戦",
+    tagline: "لعنات قوية ومعارك مرعبة.",
+    description: "أبطال يواجهون مخلوقات مظلمة في عالم السحر الحديث.",
+    genres: ["action", "supernatural"],
+    type: "TV",
+    status: "Ongoing",
+    era: "2020s",
+    score: 8.8,
+    episodes: "متوسط",
+    duration: "24د",
+    palette: ["#60a5fa", "#1e40af"],
+    tags: ["لعنات", "سحر", "قتال"]
+  },
+  {
+    id: "my-hero-academia",
+    title: "My Hero Academia",
+    jp: "僕のヒーローアカデミア",
+    tagline: "بطولة تتشكل من الصفر.",
+    description: "طلاب بأحلام كبيرة في أكاديمية الأبطال.",
+    genres: ["action", "fantasy", "comedy"],
+    type: "TV",
+    status: "Ongoing",
+    era: "2010s",
+    score: 8.1,
+    episodes: "متوسط",
+    duration: "24د",
+    poster: "Season_1_Key_Visual_2.webp",
+    palette: ["#38bdf8", "#0f172a"],
+    tags: ["أبطال", "مدرسة", "شونين"]
+  },
+  {
+    id: "fullmetal-brotherhood",
+    title: "Fullmetal Alchemist: Brotherhood",
+    jp: "鋼の錬金術師",
+    tagline: "قصة أخوة في عالم الخيمياء.",
+    description: "رحلة بحث عن الحقيقة بثمن باهظ ومشاعر قوية.",
+    genres: ["action", "fantasy", "adventure"],
+    type: "TV",
+    status: "Completed",
+    era: "2000s",
+    score: 9.2,
+    episodes: "متوسط",
+    duration: "24د",
+    palette: ["#f97316", "#7c2d12"],
+    tags: ["خيمياء", "أخوة", "رحلة"]
+  },
+  {
+    id: "death-note",
+    title: "Death Note",
+    jp: "デスノート",
+    tagline: "معركة عقلية بين العبقرية والعدالة.",
+    description: "دفتر غامض يقلب موازين العالم ويشعل صراعاً نفسياً حاداً.",
+    genres: ["thriller", "mystery", "supernatural"],
+    type: "TV",
+    status: "Completed",
+    era: "2000s",
+    score: 8.9,
+    episodes: "متوسط",
+    duration: "23د",
+    palette: ["#9ca3af", "#111827"],
+    tags: ["ذكاء", "محقق", "توتر"]
+  },
+  {
+    id: "steins-gate",
+    title: "Steins;Gate",
+    jp: "シュタインズ・ゲート",
+    tagline: "تجربة زمنية بمخاطر لا تحصى.",
+    description: "مجموعة أصدقاء يعبثون بالزمن في قصة عاطفية ومعقدة.",
+    genres: ["sci-fi", "thriller", "drama"],
+    type: "TV",
+    status: "Completed",
+    era: "2010s",
+    score: 9.1,
+    episodes: "متوسط",
+    duration: "24د",
+    palette: ["#c084fc", "#4c1d95"],
+    tags: ["زمن", "تقنية", "تشويق"]
+  },
+  {
+    id: "spy-family",
+    title: "Spy x Family",
+    jp: "SPY×FAMILY",
+    tagline: "عائلة مزيفة بأسرار حقيقية.",
+    description: "مزيج ممتع من الأكشن والكوميديا واللحظات الدافئة.",
+    genres: ["comedy", "action", "slice-of-life"],
+    type: "TV",
+    status: "Ongoing",
+    era: "2020s",
+    score: 8.5,
+    episodes: "قصير",
+    duration: "24د",
+    palette: ["#fde68a", "#f59e0b"],
+    tags: ["جواسيس", "عائلة", "كوميديا"]
+  },
+  {
+    id: "haikyuu",
+    title: "Haikyuu!!",
+    jp: "ハイキュー!!",
+    tagline: "روح الفريق في أعلى مستوياتها.",
+    description: "حماس كرة الطائرة مع تطور شخصيات ممتع للغاية.",
+    genres: ["sports", "comedy", "drama"],
+    type: "TV",
+    status: "Completed",
+    era: "2010s",
+    score: 8.7,
+    episodes: "متوسط",
+    duration: "24د",
+    palette: ["#fb923c", "#1d4ed8"],
+    tags: ["كرة طائرة", "روح الفريق", "منافسة"]
+  },
+  {
+    id: "your-lie-in-april",
+    title: "Your Lie in April",
+    jp: "四月は君の嘘",
+    tagline: "الموسيقى تعيد الحياة من جديد.",
+    description: "قصة رومانسية مؤثرة تدور حول الموسيقى والشفاء.",
+    genres: ["romance", "drama", "music"],
+    type: "TV",
+    status: "Completed",
+    era: "2010s",
+    score: 8.6,
+    episodes: "قصير",
+    duration: "23د",
+    palette: ["#f9a8d4", "#ec4899"],
+    tags: ["بيانو", "مشاعر", "دموع"]
+  },
+  {
+    id: "violet-evergarden",
+    title: "Violet Evergarden",
+    jp: "ヴァイオレット・エヴァーガーデン",
+    tagline: "رسائل مكتوبة بالدمع.",
+    description: "قصة شاعرية عن فهم المشاعر وتعلم الحب.",
+    genres: ["drama", "slice-of-life"],
+    type: "TV",
+    status: "Completed",
+    era: "2010s",
+    score: 8.7,
+    episodes: "قصير",
+    duration: "24د",
+    palette: ["#93c5fd", "#2563eb"],
+    tags: ["رسائل", "مشاعر", "هدوء"]
+  },
+  {
+    id: "kaguya-sama",
+    title: "Kaguya-sama: Love is War",
+    jp: "かぐや様は告らせたい",
+    tagline: "حرب باردة بين قلبين.",
+    description: "كوميديا رومانسية مع معارك نفسية لطيفة.",
+    genres: ["romance", "comedy"],
+    type: "TV",
+    status: "Completed",
+    era: "2010s",
+    score: 8.4,
+    episodes: "قصير",
+    duration: "24د",
+    palette: ["#fca5a5", "#be123c"],
+    tags: ["مدرسة", "ذكاء", "حب"]
+  },
+  {
+    id: "toradora",
+    title: "Toradora!",
+    jp: "とらドラ!",
+    tagline: "حب غير متوقع.",
+    description: "قصة رومانسية خفيفة مع مواقف طريفة.",
+    genres: ["romance", "comedy", "drama"],
+    type: "TV",
+    status: "Completed",
+    era: "2000s",
+    score: 8.0,
+    episodes: "قصير",
+    duration: "24د",
+    palette: ["#fdba74", "#f97316"],
+    tags: ["مدرسة", "صداقات", "كوميديا"]
+  },
+  {
+    id: "mushoku-tensei",
+    title: "Mushoku Tensei",
+    jp: "無職転生",
+    tagline: "فرصة ثانية في عالم جديد.",
+    description: "إيسيكاي غني بالتفاصيل وتطور شخصية واضح.",
+    genres: ["isekai", "fantasy", "adventure"],
+    type: "TV",
+    status: "Ongoing",
+    era: "2020s",
+    score: 8.3,
+    episodes: "متوسط",
+    duration: "24د",
+    palette: ["#6ee7b7", "#059669"],
+    tags: ["عالم آخر", "سحر", "رحلة"]
+  },
+  {
+    id: "re-zero",
+    title: "Re:Zero",
+    jp: "Re:ゼロから始める異世界生活",
+    tagline: "حلقة لا تنتهي من التحديات.",
+    description: "كل قرار قد يعيد الزمن إلى البداية من جديد.",
+    genres: ["isekai", "thriller", "fantasy"],
+    type: "TV",
+    status: "Ongoing",
+    era: "2010s",
+    score: 8.2,
+    episodes: "متوسط",
+    duration: "25د",
+    palette: ["#a5b4fc", "#4f46e5"],
+    tags: ["عودة زمن", "توتر", "مصير"]
+  },
+  {
+    id: "promised-neverland",
+    title: "The Promised Neverland",
+    jp: "約束のネバーランド",
+    tagline: "الهروب يحتاج خطة ذكية.",
+    description: "أطفال يحاولون النجاة من حقيقة مرعبة.",
+    genres: ["horror", "thriller", "mystery"],
+    type: "TV",
+    status: "Completed",
+    era: "2010s",
+    score: 8.4,
+    episodes: "قصير",
+    duration: "23د",
+    palette: ["#94a3b8", "#0f172a"],
+    tags: ["ذكاء", "هروب", "غموض"]
+  },
+  {
+    id: "made-in-abyss",
+    title: "Made in Abyss",
+    jp: "メイドインアビス",
+    tagline: "عمق مظلم وجمال خطير.",
+    description: "رحلة إلى هوة غامضة مليئة بالأسرار.",
+    genres: ["adventure", "fantasy", "horror"],
+    type: "TV",
+    status: "Ongoing",
+    era: "2010s",
+    score: 8.6,
+    episodes: "قصير",
+    duration: "24د",
+    palette: ["#a7f3d0", "#0f766e"],
+    tags: ["مغامرة", "عالم غريب", "تشويق"]
+  },
+  {
+    id: "dr-stone",
+    title: "Dr. Stone",
+    jp: "Dr.STONE",
+    tagline: "العلم يعيد بناء الحضارة.",
+    description: "مزيج ممتع من العلم والمغامرة في عالم متجمد.",
+    genres: ["sci-fi", "adventure", "comedy"],
+    type: "TV",
+    status: "Ongoing",
+    era: "2010s",
+    score: 8.1,
+    episodes: "متوسط",
+    duration: "24د",
+    palette: ["#fde047", "#f97316"],
+    tags: ["علم", "بقاء", "اختراع"]
+  },
+  {
+    id: "oshi-no-ko",
+    title: "Oshi no Ko",
+    jp: "【推しの子】",
+    tagline: "عالم النجوم مليء بالأسرار.",
+    description: "دراما مشوقة عن الشهرة والهوية.",
+    genres: ["drama", "music", "mystery"],
+    type: "TV",
+    status: "Ongoing",
+    era: "2020s",
+    score: 8.7,
+    episodes: "قصير",
+    duration: "24د",
+    palette: ["#f9a8d4", "#a855f7"],
+    tags: ["نجومية", "دراما", "غموض"]
+  },
+  {
+    id: "frieren",
+    title: "Frieren: Beyond Journey's End",
+    jp: "葬送のフリーレン",
+    tagline: "ما بعد النهاية بداية جديدة.",
+    description: "فانتازيا هادئة عن الزمن والذكريات.",
+    genres: ["fantasy", "adventure", "drama"],
+    type: "TV",
+    status: "Ongoing",
+    era: "2020s",
+    score: 8.9,
+    episodes: "قصير",
+    duration: "24د",
+    palette: ["#a7f3d0", "#38bdf8"],
+    tags: ["رحلة", "ذكريات", "سحر"]
+  },
+  {
+    id: "blue-lock",
+    title: "Blue Lock",
+    jp: "ブルーロック",
+    tagline: "الهدف: أقوى مهاجم.",
+    description: "منافسة شرسة تجمع أفضل المهاجمين في اليابان.",
+    genres: ["sports", "thriller", "drama"],
+    type: "TV",
+    status: "Ongoing",
+    era: "2020s",
+    score: 8.2,
+    episodes: "متوسط",
+    duration: "24د",
+    palette: ["#60a5fa", "#1e3a8a"],
+    tags: ["كرة قدم", "منافسة", "طموح"]
+  },
+  {
+    id: "chainsaw-man",
+    title: "Chainsaw Man",
+    jp: "チェンソーマン",
+    tagline: "قوة مرعبة بثمن باهظ.",
+    description: "أكشن دموي وقصة غير تقليدية.",
+    genres: ["action", "horror", "supernatural"],
+    type: "TV",
+    status: "Ongoing",
+    era: "2020s",
+    score: 8.4,
+    episodes: "قصير",
+    duration: "24د",
+    palette: ["#f87171", "#7f1d1d"],
+    tags: ["رعب", "شيطان", "أكشن"]
+  },
+  {
+    id: "vinland-saga",
+    title: "Vinland Saga",
+    jp: "ヴィンランド・サガ",
+    tagline: "قصة تاريخية عن الانتقام والشرف.",
+    description: "ملحمة فايكنج مليئة بالدراما والمعارك.",
+    genres: ["action", "historical", "drama"],
+    type: "TV",
+    status: "Ongoing",
+    era: "2010s",
+    score: 8.7,
+    episodes: "متوسط",
+    duration: "24د",
+    palette: ["#fcd34d", "#92400e"],
+    tags: ["فايكنج", "تاريخ", "حرب"]
+  },
+  {
+    id: "mob-psycho",
+    title: "Mob Psycho 100",
+    jp: "モブサイコ100",
+    tagline: "قوة نفسية بروح خفيفة.",
+    description: "أكشن كوميدي مع رسائل قوية عن الذات.",
+    genres: ["action", "comedy", "supernatural"],
+    type: "TV",
+    status: "Completed",
+    era: "2010s",
+    score: 8.5,
+    episodes: "متوسط",
+    duration: "24د",
+    palette: ["#a5f3fc", "#0284c7"],
+    tags: ["قوى نفسية", "ضحك", "نمو"]
+  },
+  {
+    id: "bocchi",
+    title: "Bocchi the Rock!",
+    jp: "ぼっち・ざ・ろっく！",
+    tagline: "موسيقى وصداقة وخجل لطيف.",
+    description: "مشاهد ممتعة عن فرقة موسيقية ومرحلة المراهقة.",
+    genres: ["music", "slice-of-life", "comedy"],
+    type: "TV",
+    status: "Completed",
+    era: "2020s",
+    score: 8.5,
+    episodes: "قصير",
+    duration: "24د",
+    palette: ["#f9a8d4", "#fb7185"],
+    tags: ["فرقة", "موسيقى", "يومي"]
+  },
+  {
+    id: "parasyte",
+    title: "Parasyte",
+    jp: "寄生獣",
+    tagline: "غزو صامت داخل الجسد.",
+    description: "رعب نفسي وسؤال عميق عن الإنسانية.",
+    genres: ["horror", "sci-fi", "drama"],
+    type: "TV",
+    status: "Completed",
+    era: "2010s",
+    score: 8.3,
+    episodes: "قصير",
+    duration: "23د",
+    palette: ["#9ca3af", "#14532d"],
+    tags: ["كائنات", "بقاء", "توتر"]
+  },
+  {
+    id: "cowboy-bebop",
+    title: "Cowboy Bebop",
+    jp: "カウボーイビバップ",
+    tagline: "مطاردات فضائية بأناقة كلاسيكية.",
+    description: "موسيقى جاز وأجواء نوار في رحلة صائدين الجوائز.",
+    genres: ["sci-fi", "adventure", "drama"],
+    type: "TV",
+    status: "Completed",
+    era: "classic",
+    score: 8.9,
+    episodes: "قصير",
+    duration: "24د",
+    palette: ["#fbbf24", "#1f2937"],
+    tags: ["فضاء", "جاز", "كلاسيك"]
+  },
+  {
+    id: "evangelion",
+    title: "Neon Genesis Evangelion",
+    jp: "新世紀エヴァンゲリオン",
+    tagline: "ميكا ودراما نفسية عميقة.",
+    description: "قصة معقدة عن المسؤولية والهوية.",
+    genres: ["mecha", "drama", "sci-fi"],
+    type: "TV",
+    status: "Completed",
+    era: "classic",
+    score: 8.5,
+    episodes: "قصير",
+    duration: "24د",
+    palette: ["#a78bfa", "#1e1b4b"],
+    tags: ["ميكا", "نفسية", "كلاسيك"]
+  },
+  {
+    id: "detective-conan",
+    title: "Detective Conan",
+    jp: "名探偵コナン",
+    tagline: "ذكاء محقق في جسد طفل.",
+    description: "ألغاز لا تنتهي وتحقيقات ممتعة.",
+    genres: ["mystery", "thriller"],
+    type: "TV",
+    status: "Ongoing",
+    era: "classic",
+    score: 8.2,
+    episodes: "طويل",
+    duration: "24د",
+    poster: "images.jpeg",
+    palette: ["#93c5fd", "#1d4ed8"],
+    tags: ["محقق", "ألغاز", "غموض"]
+  }
+];
+
+const MEDIA_MAP = {
+  naruto: { trailerId: "22R0j8UKRzY" },
+  "one-piece": { trailerId: "ceQwv3BUbkA" },
+  "attack-on-titan": { trailerId: "1XrLuchKZjI" },
+  "demon-slayer": { trailerId: "TcuxuwtIhtY" },
+  "jujutsu-kaisen": { trailerId: "pkKu9hLT-t8" },
+  "my-hero-academia": { trailerId: "tohKs2w4vfA" },
+  "death-note": { trailerId: "NlJZ-YgAt-c" },
+  "spy-family": { trailerId: "6sosTNRw_uQ" },
+  haikyuu: { trailerId: "IZ8iIHpe4Lg" },
+  "kaguya-sama": { trailerId: "hjy7vK0hTAE" },
+  "mushoku-tensei": { trailerId: "k5VxfJpzy1Q" },
+  "dr-stone": { trailerId: "W5VvkyJ7XB0" },
+  "made-in-abyss": { trailerId: "kFjP5b5dmYw" },
+  "re-zero": { trailerId: "7IQM5EPf2Y0" }
+};
+
+const ANIME = ANIME_DATA.map((anime) => {
+  const media = MEDIA_MAP[anime.id] || {};
+  const poster = anime.poster || (media.trailerId ? getTrailerThumb(media.trailerId) : undefined);
+  return { ...anime, ...media, poster };
+});
+
+const STORAGE_KEY = "animeGoldWatchlist";
+
+const byId = new Map(ANIME.map((anime) => [anime.id, anime]));
+
+const escapeHtml = (value) =>
+  String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+
+const buildWatchMenu = (title, size = "small") => {
+  const summaryClass = size === "small" ? "btn ghost small" : "btn ghost";
+  const links = OFFICIAL_PLATFORMS.map(
+    (platform) =>
+      `<a href="${platform.url(title)}" target="_blank" rel="noreferrer">${escapeHtml(
+        platform.label
+      )}</a>`
+  ).join("");
+
+  return `
+    <details class="watch-menu">
+      <summary class="${summaryClass}">شاهد الحلقات الرسمية</summary>
+      <div class="watch-menu-list">${links}</div>
+    </details>
+  `;
+};
+
+const renderPlaylistItem = (anime, activeId) => {
+  const thumb = anime.poster || (anime.trailerId ? getTrailerThumb(anime.trailerId) : "");
+  const activeClass = anime.id === activeId ? "active" : "";
+  const status = STATUS_LABELS[anime.status] || anime.status;
+
+  return `
+    <button class="playlist-item ${activeClass}" type="button" data-id="${anime.id}">
+      <span class="playlist-thumb" style="background-image:url('${thumb}');"></span>
+      <span class="playlist-info">
+        <strong>${escapeHtml(anime.title)}</strong>
+        <span>${status} • ⭐ ${anime.score.toFixed(1)}</span>
+      </span>
+    </button>
+  `;
+};
+
+const getWatchlist = () => {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    return stored ? JSON.parse(stored) : [];
+  } catch (err) {
+    return [];
+  }
+};
+
+const saveWatchlist = (list) => {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+};
+
+const toggleWatchlist = (id) => {
+  const list = getWatchlist();
+  const index = list.indexOf(id);
+  if (index >= 0) {
+    list.splice(index, 1);
+    saveWatchlist(list);
+    return false;
+  }
+  list.push(id);
+  saveWatchlist(list);
+  return true;
+};
+
+const removeFromWatchlist = (id) => {
+  const list = getWatchlist().filter((item) => item !== id);
+  saveWatchlist(list);
+};
+
+const renderCard = (anime, options = {}) => {
+  const { delay = 0, mode = "default" } = options;
+  const posterStyle = anime.poster
+    ? `style="background-image:url('${anime.poster}');"`
+    : `style="--g1:${anime.palette[0]};--g2:${anime.palette[1]};"`;
+  const posterClass = anime.poster ? "poster has-image" : "poster";
+  const chips = anime.genres
+    .map((genre) => `<span class="chip">${GENRE_LABELS[genre] || genre}</span>`)
+    .join("");
+  const inList = getWatchlist().includes(anime.id);
+  const buttonLabel =
+    mode === "watchlist"
+      ? "إزالة"
+      : inList
+      ? "في قائمتي"
+      : "أضف للقائمة";
+  const buttonMode = mode === "watchlist" ? "remove" : "toggle";
+  const watchMenu = buildWatchMenu(anime.title);
+
+  return `
+    <article class="card reveal" style="--delay:${delay}s;">
+      <div class="${posterClass}" ${posterStyle}>
+        <span class="poster-title">${escapeHtml(anime.title)}</span>
+      </div>
+      <div class="card-body">
+        <div class="card-top">
+          <a class="card-title" href="detail.html?id=${anime.id}">${escapeHtml(anime.title)}</a>
+          <span class="score">⭐ ${anime.score.toFixed(1)}</span>
+        </div>
+        <p class="card-desc">${escapeHtml(anime.tagline)}</p>
+        <div class="meta">
+          <span>${TYPE_LABELS[anime.type] || anime.type}</span>
+          <span>${STATUS_LABELS[anime.status] || anime.status}</span>
+          <span>${ERA_LABELS[anime.era] || anime.era}</span>
+        </div>
+        <div class="chips">${chips}</div>
+        <div class="card-actions">
+          <a class="btn small" href="detail.html?id=${anime.id}">التفاصيل</a>
+          <a class="btn ghost small" href="player.html?id=${anime.id}">المشغل</a>
+          <button class="btn ghost small watch-toggle" data-id="${anime.id}" data-mode="${buttonMode}">${buttonLabel}</button>
+          ${watchMenu}
+        </div>
+      </div>
+    </article>
+  `;
+};
+
+const renderDiscover = () => {
+  const grid = document.getElementById("animeGrid");
+  if (!grid) return;
+
+  const searchInput = document.getElementById("searchInput");
+  const genreFilter = document.getElementById("genreFilter");
+  const typeFilter = document.getElementById("typeFilter");
+  const statusFilter = document.getElementById("statusFilter");
+  const eraFilter = document.getElementById("eraFilter");
+  const sortFilter = document.getElementById("sortFilter");
+  const resultCount = document.getElementById("resultCount");
+  const resetFilters = document.getElementById("resetFilters");
+
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("q")) searchInput.value = params.get("q");
+  if (params.get("genre")) genreFilter.value = params.get("genre");
+
+  const applyFilters = () => {
+    const q = searchInput.value.trim().toLowerCase();
+    const genre = genreFilter.value;
+    const type = typeFilter.value;
+    const status = statusFilter.value;
+    const era = eraFilter.value;
+    let list = ANIME.filter((anime) => {
+      const haystack = [
+        anime.title,
+        anime.jp,
+        anime.tagline,
+        anime.description,
+        ...(anime.tags || []),
+        ...anime.genres
+      ]
+        .join(" ")
+        .toLowerCase();
+
+      if (q && !haystack.includes(q)) return false;
+      if (genre !== "all" && !anime.genres.includes(genre)) return false;
+      if (type !== "all" && anime.type !== type) return false;
+      if (status !== "all" && anime.status !== status) return false;
+      if (era !== "all" && anime.era !== era) return false;
+      return true;
+    });
+
+    if (sortFilter.value === "score") {
+      list = list.sort((a, b) => b.score - a.score);
+    } else if (sortFilter.value === "title") {
+      list = list.sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    grid.innerHTML = list
+      .map((anime, index) => renderCard(anime, { delay: index * 0.03 }))
+      .join("");
+    if (resultCount) {
+      resultCount.textContent = `${list.length} نتيجة`;
+    }
+    updateWatchButtons();
+  };
+
+  searchInput.addEventListener("input", applyFilters);
+  [genreFilter, typeFilter, statusFilter, eraFilter, sortFilter].forEach((select) =>
+    select.addEventListener("change", applyFilters)
+  );
+
+  if (resetFilters) {
+    resetFilters.addEventListener("click", () => {
+      searchInput.value = "";
+      genreFilter.value = "all";
+      typeFilter.value = "all";
+      statusFilter.value = "all";
+      eraFilter.value = "all";
+      sortFilter.value = "suggested";
+      applyFilters();
+    });
+  }
+
+  document.querySelectorAll(".filter-chip").forEach((chip) => {
+    chip.addEventListener("click", () => {
+      genreFilter.value = chip.dataset.genre || "all";
+      applyFilters();
+    });
+  });
+
+  applyFilters();
+};
+
+const renderWatchlist = () => {
+  const grid = document.getElementById("watchlistGrid");
+  if (!grid) return;
+  const empty = document.getElementById("watchlistEmpty");
+  const items = getWatchlist()
+    .map((id) => byId.get(id))
+    .filter(Boolean);
+
+  grid.innerHTML = items
+    .map((anime, index) => renderCard(anime, { delay: index * 0.03, mode: "watchlist" }))
+    .join("");
+
+  if (empty) {
+    empty.classList.toggle("hidden", items.length > 0);
+  }
+  updateWatchButtons();
+};
+
+const renderDetail = () => {
+  const container = document.getElementById("detail");
+  if (!container) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  const anime = byId.get(id);
+
+  if (!anime) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <h3>لم نجد هذا العنوان</h3>
+        <p>ارجع إلى صفحة الاكتشاف لتصفح العناوين المتاحة.</p>
+        <a class="btn primary" href="anime.html">اكتشف الآن</a>
+      </div>
+    `;
+    return;
+  }
+
+  const posterStyle = anime.poster
+    ? `style="background-image:url('${anime.poster}');"`
+    : `style="--g1:${anime.palette[0]};--g2:${anime.palette[1]};"`;
+  const posterClass = anime.poster ? "detail-poster has-image" : "detail-poster";
+  const genres = anime.genres
+    .map((genre) => `<span class="chip">${GENRE_LABELS[genre] || genre}</span>`)
+    .join("");
+  const trailerBlock = anime.trailerId
+    ? `
+      <div class="video-embed">
+        <iframe
+          src="https://www.youtube.com/embed/${anime.trailerId}?rel=0"
+          title="Trailer - ${escapeHtml(anime.title)}"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      </div>
+    `
+    : `<div class="video-placeholder">لا يوجد تريلر رسمي متاح لهذا الأنمي حالياً.</div>`;
+  const watchMenu = buildWatchMenu(anime.title, "default");
+  const inList = getWatchlist().includes(anime.id);
+
+  document.title = `Anime-Gold | ${anime.title}`;
+
+  container.innerHTML = `
+    <div class="detail-card">
+      <div class="${posterClass}" ${posterStyle}></div>
+      <div class="detail-content">
+        <div class="card-top">
+          <h2>${escapeHtml(anime.title)}</h2>
+          <span class="score">⭐ ${anime.score.toFixed(1)}</span>
+        </div>
+        <p class="lead">${escapeHtml(anime.tagline)}</p>
+        <p>${escapeHtml(anime.description)}</p>
+        ${trailerBlock}
+        <div class="detail-meta">
+          <div>النوع: ${genres}</div>
+          <div>النوع الفني: ${TYPE_LABELS[anime.type] || anime.type}</div>
+          <div>الحالة: ${STATUS_LABELS[anime.status] || anime.status}</div>
+          <div>الحقبة: ${ERA_LABELS[anime.era] || anime.era}</div>
+          <div>الحلقات: ${anime.episodes}</div>
+          <div>المدة: ${anime.duration}</div>
+        </div>
+        <div class="card-actions">
+          <button class="btn primary watch-toggle" data-id="${anime.id}">${inList ? "في قائمتي" : "أضف للقائمة"}</button>
+          <a class="btn ghost" href="anime.html?genre=${anime.genres[0]}">مشابه</a>
+          <a class="btn ghost" href="player.html?id=${anime.id}">المشغل</a>
+          ${watchMenu}
+        </div>
+      </div>
+    </div>
+  `;
+
+  const similarGrid = document.getElementById("similarGrid");
+  if (similarGrid) {
+    const similar = ANIME.filter(
+      (item) => item.id !== anime.id && item.genres.some((g) => anime.genres.includes(g))
+    ).slice(0, 4);
+    similarGrid.innerHTML = similar
+      .map((item, index) => renderCard(item, { delay: index * 0.03 }))
+      .join("");
+  }
+};
+
+const renderPlayer = () => {
+  const embed = document.getElementById("playerEmbed");
+  if (!embed) return;
+
+  const list = ANIME.filter((anime) => anime.trailerId);
+  const params = new URLSearchParams(window.location.search);
+  const requested = params.get("id");
+  const current = byId.get(requested) || list[0] || ANIME[0];
+
+  if (!current) return;
+
+  const titleEl = document.getElementById("playerTitle");
+  const scoreEl = document.getElementById("playerScore");
+  const taglineEl = document.getElementById("playerTagline");
+  const metaEl = document.getElementById("playerMeta");
+  const actionsEl = document.getElementById("playerActions");
+  const listEl = document.getElementById("playerList");
+
+  const setPlayer = (anime) => {
+    const trailer = anime.trailerId
+      ? `
+        <iframe
+          src="https://www.youtube.com/embed/${anime.trailerId}?rel=0"
+          title="Trailer - ${escapeHtml(anime.title)}"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      `
+      : `<div class="video-placeholder">لا يوجد تريلر رسمي متاح لهذا الأنمي حالياً.</div>`;
+
+    embed.innerHTML = trailer;
+
+    if (titleEl) titleEl.textContent = anime.title;
+    if (scoreEl) scoreEl.textContent = `⭐ ${anime.score.toFixed(1)}`;
+    if (taglineEl) taglineEl.textContent = anime.tagline;
+
+    if (metaEl) {
+      metaEl.innerHTML = `
+        <span>${TYPE_LABELS[anime.type] || anime.type}</span>
+        <span>${STATUS_LABELS[anime.status] || anime.status}</span>
+        <span>${ERA_LABELS[anime.era] || anime.era}</span>
+        <span>${anime.episodes}</span>
+        <span>${anime.duration}</span>
+      `;
+    }
+
+    if (actionsEl) {
+      const inList = getWatchlist().includes(anime.id);
+      actionsEl.innerHTML = `
+        <a class="btn primary" href="detail.html?id=${anime.id}">صفحة التفاصيل</a>
+        <a class="btn ghost" href="anime.html?genre=${anime.genres[0]}">اكتشف مشابه</a>
+        <button class="btn ghost watch-toggle" data-id="${anime.id}">${inList ? "في قائمتي" : "أضف للقائمة"}</button>
+        ${buildWatchMenu(anime.title, "default")}
+      `;
+      updateWatchButtons();
+    }
+
+    if (listEl) {
+      listEl.querySelectorAll(".playlist-item").forEach((item) => {
+        item.classList.toggle("active", item.dataset.id === anime.id);
+      });
+    }
+
+    if (window.history && anime.id) {
+      const url = new URL(window.location.href);
+      url.searchParams.set("id", anime.id);
+      window.history.replaceState({}, "", url.toString());
+    }
+  };
+
+  if (listEl) {
+    listEl.innerHTML = list.map((anime) => renderPlaylistItem(anime, current.id)).join("");
+    listEl.addEventListener("click", (event) => {
+      const item = event.target.closest(".playlist-item");
+      if (!item) return;
+      const anime = byId.get(item.dataset.id);
+      if (anime) setPlayer(anime);
+    });
+  }
+
+  setPlayer(current);
+};
+
+const setupNav = () => {
+  const toggle = document.querySelector(".nav-toggle");
+  const nav = document.querySelector(".nav-links");
+  if (!toggle || !nav) return;
+
+  toggle.addEventListener("click", () => {
+    const expanded = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!expanded));
+    nav.classList.toggle("open");
+  });
+
+  nav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      nav.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+    });
+  });
+};
+
+const updateWatchButtons = () => {
+  const list = getWatchlist();
+  document.querySelectorAll(".watch-toggle").forEach((button) => {
+    if (button.dataset.mode === "remove") return;
+    const id = button.dataset.id;
+    if (!id) return;
+    button.textContent = list.includes(id) ? "في قائمتي" : "أضف للقائمة";
+  });
+};
+
+const showToast = (message) => {
+  const toast = document.getElementById("toast");
+  if (!toast) return;
+  toast.textContent = message;
+  toast.classList.add("show");
+  window.clearTimeout(showToast._timer);
+  showToast._timer = window.setTimeout(() => toast.classList.remove("show"), 2200);
+};
+
+const setupWatchlistButtons = () => {
+  document.addEventListener("click", (event) => {
+    const button = event.target.closest(".watch-toggle");
+    if (!button) return;
+
+    const id = button.dataset.id;
+    if (!id) return;
+
+    if (button.dataset.mode === "remove") {
+      removeFromWatchlist(id);
+      renderWatchlist();
+      showToast("تمت الإزالة من قائمتك");
+      return;
+    }
+
+    const added = toggleWatchlist(id);
+    button.textContent = added ? "في قائمتي" : "أضف للقائمة";
+    updateWatchButtons();
+    showToast(added ? "تمت الإضافة إلى قائمتك" : "تمت الإزالة من قائمتك");
+  });
+};
+
+const setupContactForm = () => {
+  const form = document.getElementById("contactForm");
+  if (!form) return;
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    form.reset();
+    showToast("تم إرسال رسالتك بنجاح");
+  });
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  setupNav();
+  setupWatchlistButtons();
+  renderDiscover();
+  renderWatchlist();
+  renderDetail();
+  renderPlayer();
+  setupContactForm();
+});

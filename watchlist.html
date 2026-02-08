@@ -1,0 +1,79 @@
+﻿<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime-Gold | قائمتي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Chakra+Petch:wght@600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="Anime.css">
+</head>
+<body data-page="watchlist">
+  <a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+  <header class="site-header">
+    <div class="brand">
+      <a class="brand-logo" href="a.html"><img src="logo.svg" alt="Anime-Gold logo"><span>Anime-Gold</span></a>
+      <span class="brand-tag">بوابتك الذهبية لعالم الأنمي</span>
+    </div>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-links" id="site-nav">
+      <a href="a.html">الرئيسية</a>
+      <a href="anime.html">اكتشف</a>
+            <a href="player.html">المشغل</a>
+      <a href="genres.html">الأنواع</a>
+      <a href="watchlist.html" class="active">قائمتي</a>
+      <a href="news.html">الأخبار</a>
+      <a href="about.html">عنّا</a>
+      <a href="contact.html" class="nav-cta">تواصل</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero hero-small">
+      <div class="hero-content">
+        <p class="eyebrow">قائمتي الذهبية</p>
+        <h1>كل ما تحب في مكان واحد</h1>
+        <p class="lead">أضف الأنمي المفضل لديك بنقرة واحدة من صفحة الاكتشاف.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div id="watchlistGrid" class="grid cards"></div>
+      <div id="watchlistEmpty" class="empty-state hidden">
+        <h3>قائمتك فارغة حالياً</h3>
+        <p>ابدأ بإضافة أنميات من صفحة الاكتشاف.</p>
+        <a class="btn primary" href="anime.html">اذهب للاكتشاف</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <h4>Anime-Gold</h4>
+        <p>قائمة مشاهدة منظمة وسهلة.</p>
+      </div>
+      <div>
+        <h4>استكشف</h4>
+        <a href="anime.html">المكتبة</a>
+        <a href="genres.html">الأنواع</a>
+      </div>
+      <div>
+        <h4>تواصل</h4>
+        <a href="contact.html">مراسلة مباشرة</a>
+        <a href="mailto:anime-gold@email.com">anime-gold@email.com</a>
+      </div>
+    </div>
+    <p class="footer-note">© 2026 Anime-Gold. جميع الحقوق محفوظة.</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,93 @@
+﻿<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime-Gold | Ø§Ù„Ù…Ø´ØºÙ„</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Chakra+Petch:wght@600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="Anime.css">
+</head>
+<body data-page="player">
+  <a class="skip-link" href="#main">ØªØ¬Ø§ÙˆØ² Ø¥Ù„Ù‰ Ø§Ù„Ù…Ø­ØªÙˆÙ‰</a>
+  <header class="site-header">
+    <div class="brand">
+      <a class="brand-logo" href="a.html"><img src="logo.svg" alt="Anime-Gold logo"><span>Anime-Gold</span></a>
+      <span class="brand-tag">Ø¨ÙˆØ§Ø¨ØªÙƒ Ø§Ù„Ø°Ù‡Ø¨ÙŠØ© Ù„Ø¹Ø§Ù„Ù… Ø§Ù„Ø£Ù†Ù…ÙŠ</span>
+    </div>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-links" id="site-nav">
+      <a href="a.html">Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©</a>
+      <a href="anime.html">Ø§ÙƒØªØ´Ù</a>
+      <a href="player.html" class="active">Ø§Ù„Ù…Ø´ØºÙ„</a>
+      <a href="genres.html">Ø§Ù„Ø£Ù†ÙˆØ§Ø¹</a>
+      <a href="watchlist.html">Ù‚Ø§Ø¦Ù…ØªÙŠ</a>
+      <a href="news.html">Ø§Ù„Ø£Ø®Ø¨Ø§Ø±</a>
+      <a href="about.html">Ø¹Ù†Ù‘Ø§</a>
+      <a href="contact.html" class="nav-cta">ØªÙˆØ§ØµÙ„</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero hero-small">
+      <div class="hero-content">
+        <p class="eyebrow">Ø§Ù„Ù…Ø´ØºÙ„ Ø§Ù„Ø°Ù‡Ø¨ÙŠ</p>
+        <h1>ØªØ¬Ø±Ø¨Ø© Ù…Ø´Ø§Ù‡Ø¯Ø© Ø±Ø³Ù…ÙŠØ© ÙˆØ³Ø±ÙŠØ¹Ø©</h1>
+        <p class="lead">Ù‡Ù†Ø§ ØªØ¬Ø¯ Ø§Ù„ØªØ±ÙŠÙ„Ø±Ø§Øª Ø§Ù„Ø±Ø³Ù…ÙŠØ© Ù…Ø¹ Ø§Ø®ØªØµØ§Ø±Ø§Øª Ù„Ù„Ù…Ù†ØµØ§Øª Ø§Ù„Ù‚Ø§Ù†ÙˆÙ†ÙŠØ© Ù„Ù…ØªØ§Ø¨Ø¹Ø© Ø§Ù„Ø­Ù„Ù‚Ø§Øª Ø§Ù„ÙƒØ§Ù…Ù„Ø©.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="player-shell">
+        <div class="player-card">
+          <div class="video-embed" id="playerEmbed"></div>
+          <div class="player-info">
+            <div class="card-top">
+              <h2 id="playerTitle">...</h2>
+              <span id="playerScore" class="score"></span>
+            </div>
+            <p id="playerTagline" class="lead"></p>
+            <div id="playerMeta" class="player-meta"></div>
+            <div id="playerActions" class="player-actions"></div>
+          </div>
+        </div>
+        <div class="player-card">
+          <div class="section-head">
+            <h3>Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„ØªØ´ØºÙŠÙ„ Ø§Ù„Ø±Ø³Ù…ÙŠØ©</h3>
+            <p>Ø§Ø®ØªØ± Ø¹Ù†ÙˆØ§Ù†Ø§Ù‹ Ù„Ù„ØªØ´ØºÙŠÙ„ Ø§Ù„Ø³Ø±ÙŠØ¹.</p>
+          </div>
+          <div id="playerList" class="playlist"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <h4>Anime-Gold</h4>
+        <p>Ù…Ø´ØºÙ„ Ø±Ø³Ù…ÙŠ ÙˆØªØ¬Ø±Ø¨Ø© Ù…Ù†Ø¸Ù…Ø© Ù„Ø¹Ø´Ø§Ù‚ Ø§Ù„Ø£Ù†Ù…ÙŠ.</p>
+      </div>
+      <div>
+        <h4>Ø§Ø³ØªÙƒØ´Ù</h4>
+        <a href="anime.html">Ø§Ù„Ù…ÙƒØªØ¨Ø©</a>
+        <a href="genres.html">Ø§Ù„Ø£Ù†ÙˆØ§Ø¹</a>
+        <a href="watchlist.html">Ù‚Ø§Ø¦Ù…ØªÙŠ</a>
+      </div>
+      <div>
+        <h4>ØªÙˆØ§ØµÙ„</h4>
+        <a href="contact.html">Ù…Ø±Ø§Ø³Ù„Ø© Ù…Ø¨Ø§Ø´Ø±Ø©</a>
+        <a href="mailto:anime-gold@email.com">anime-gold@email.com</a>
+      </div>
+    </div>
+    <p class="footer-note">Â© 2026 Anime-Gold. Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø­Ù‚ÙˆÙ‚ Ù…Ø­ÙÙˆØ¸Ø©.</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
+

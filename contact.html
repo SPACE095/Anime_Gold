@@ -1,0 +1,102 @@
+﻿<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime-Gold | تواصل</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Chakra+Petch:wght@600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="Anime.css">
+</head>
+<body data-page="contact">
+  <a class="skip-link" href="#main">تجاوز إلى المحتوى</a>
+  <header class="site-header">
+    <div class="brand">
+      <a class="brand-logo" href="a.html"><img src="logo.svg" alt="Anime-Gold logo"><span>Anime-Gold</span></a>
+      <span class="brand-tag">بوابتك الذهبية لعالم الأنمي</span>
+    </div>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-links" id="site-nav">
+      <a href="a.html">الرئيسية</a>
+      <a href="anime.html">اكتشف</a>
+            <a href="player.html">المشغل</a>
+      <a href="genres.html">الأنواع</a>
+      <a href="watchlist.html">قائمتي</a>
+      <a href="news.html">الأخبار</a>
+      <a href="about.html">عنّا</a>
+      <a href="contact.html" class="active nav-cta">تواصل</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero hero-small">
+      <div class="hero-content">
+        <p class="eyebrow">ابقَ على تواصل</p>
+        <h1>خلينا نسمع رأيك</h1>
+        <p class="lead">أرسل رسالة، اقتراح، أو حتى فكرة لميزة جديدة.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="grid two">
+        <form class="contact-form" id="contactForm">
+          <label>
+            <span>الاسم</span>
+            <input type="text" name="name" placeholder="اكتب اسمك" required>
+          </label>
+          <label>
+            <span>البريد الإلكتروني</span>
+            <input type="email" name="email" placeholder="name@email.com" required>
+          </label>
+          <label>
+            <span>الموضوع</span>
+            <input type="text" name="subject" placeholder="مثال: اقتراح أنمي جديد" required>
+          </label>
+          <label>
+            <span>الرسالة</span>
+            <textarea name="message" rows="5" placeholder="اكتب رسالتك هنا" required></textarea>
+          </label>
+          <button class="btn primary" type="submit">إرسال</button>
+        </form>
+        <div class="info-card">
+          <h3>قنوات بديلة</h3>
+          <p>تقدر تتواصل معنا عبر البريد أو وسائل التواصل.</p>
+          <div class="contact-list">
+            <a href="mailto:anime-gold@email.com">anime-gold@email.com</a>
+            <span>متاحون يومياً 10:00 - 22:00</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <h4>Anime-Gold</h4>
+        <p>نحب نسمع منك دائماً.</p>
+      </div>
+      <div>
+        <h4>استكشف</h4>
+        <a href="anime.html">المكتبة</a>
+        <a href="genres.html">الأنواع</a>
+        <a href="watchlist.html">قائمتي</a>
+      </div>
+      <div>
+        <h4>تواصل</h4>
+        <a href="mailto:anime-gold@email.com">anime-gold@email.com</a>
+      </div>
+    </div>
+    <p class="footer-note">© 2026 Anime-Gold. جميع الحقوق محفوظة.</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
+
+
+
