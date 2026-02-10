@@ -58,6 +58,23 @@ const setupContactForm = () => {
   });
 };
 
+const setupPlatformSearch = () => {
+  const input = document.getElementById("platformSearch");
+  const links = document.querySelectorAll(".platform-link[data-base]");
+  if (!input || links.length === 0) return;
+
+  const updateLinks = () => {
+    const query = input.value.trim() || "anime";
+    links.forEach((link) => {
+      const base = link.dataset.base || "";
+      link.href = `${base}${encodeURIComponent(query)}`;
+    });
+  };
+
+  input.addEventListener("input", updateLinks);
+  updateLinks();
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   setupNav();
   setupWatchlistButtons();
@@ -66,4 +83,5 @@ document.addEventListener("DOMContentLoaded", () => {
   renderDetail();
   renderPlayer();
   setupContactForm();
+  setupPlatformSearch();
 });
