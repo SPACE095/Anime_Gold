@@ -39,6 +39,40 @@ const ERA_LABELS = {
   "2020s": "حديث"
 };
 
+const AR_TITLES = {
+  naruto: "ناروتو",
+  "one-piece": "ون بيس",
+  "attack-on-titan": "هجوم العمالقة",
+  "demon-slayer": "قاتل الشياطين",
+  "jujutsu-kaisen": "جوجوتسو كايسن",
+  "my-hero-academia": "أكاديمية بطلي",
+  "fullmetal-brotherhood": "الكيميائي المعدني الكامل: الإخوة",
+  "death-note": "ديث نوت",
+  "steins-gate": "شتاينز غيت",
+  "spy-family": "سباي × فاميلي",
+  haikyuu: "هايكيو",
+  "your-lie-in-april": "كذبتك في أبريل",
+  "violet-evergarden": "فيوليت إيفرغاردن",
+  "kaguya-sama": "كاغويا ساما: الحب هو الحرب",
+  toradora: "تورادورا",
+  "mushoku-tensei": "موشوكو تينسي",
+  "re-zero": "ري:زيرو",
+  "promised-neverland": "نيفَرْلاند الموعودة",
+  "made-in-abyss": "ميد إن أبيس",
+  "dr-stone": "دكتور ستون",
+  "oshi-no-ko": "أوشي نو كو",
+  frieren: "فرييرن: ما بعد نهاية الرحلة",
+  "blue-lock": "بلو لوك",
+  "chainsaw-man": "تشينسو مان",
+  "vinland-saga": "ملحمة فينلاند",
+  "mob-psycho": "موب سايكو 100",
+  bocchi: "بوتشي ذا روك",
+  parasyte: "باراسايت",
+  "cowboy-bebop": "كاوبوي بيبوب",
+  evangelion: "إيفانجيليون",
+  "detective-conan": "المحقق كونان"
+};
+
 const OFFICIAL_PLATFORMS = [
   {
     id: "crunchyroll",

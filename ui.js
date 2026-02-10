@@ -114,6 +114,7 @@ const renderDiscover = () => {
     let list = ANIME.filter((anime) => {
       const haystack = [
         anime.title,
+        AR_TITLES[anime.id] || "",
         anime.jp,
         anime.tagline,
         anime.description,
@@ -137,9 +138,21 @@ const renderDiscover = () => {
       list = list.sort((a, b) => a.title.localeCompare(b.title));
     }
 
-    grid.innerHTML = list
-      .map((anime, index) => renderCard(anime, { delay: index * 0.03 }))
-      .join("");
+    if (list.length === 0) {
+      grid.innerHTML = `
+        <div class="empty-state">
+          <h3>لا توجد نتائج مطابقة</h3>
+          <p>جرّب كتابة الاسم بالإنجليزية أو كلمات مفتاحية مثل النوع أو المزاج.</p>
+          <button class="btn ghost small" id="resetFiltersAlt">إعادة ضبط الفلاتر</button>
+        </div>
+      `;
+      const resetAlt = document.getElementById("resetFiltersAlt");
+      if (resetAlt) resetAlt.addEventListener("click", () => resetFilters?.click());
+    } else {
+      grid.innerHTML = list
+        .map((anime, index) => renderCard(anime, { delay: index * 0.03 }))
+        .join("");
+    }
     if (resultCount) {
       resultCount.textContent = `${list.length} نتيجة`;
     }
