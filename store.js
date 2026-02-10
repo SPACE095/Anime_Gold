@@ -1,21 +1,49 @@
 ﻿let memoryWatchlist = [];
 
+const resolveStorage = () => {
+  try {
+    localStorage.setItem("__anime_gold_test__", "1");
+    localStorage.removeItem("__anime_gold_test__");
+    return localStorage;
+  } catch (err) {
+    // continue
+  }
+
+  try {
+    sessionStorage.setItem("__anime_gold_test__", "1");
+    sessionStorage.removeItem("__anime_gold_test__");
+    return sessionStorage;
+  } catch (err) {
+    // continue
+  }
+
+  return null;
+};
+
+const STORAGE = resolveStorage();
+
 const getWatchlist = () => {
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) return JSON.parse(stored);
+    if (STORAGE) {
+      const stored = STORAGE.getItem(STORAGE_KEY);
+      return stored ? JSON.parse(stored) : [];
+    }
   } catch (err) {
     return memoryWatchlist.slice();
   }
-  return [];
+  return memoryWatchlist.slice();
 };
 
 const saveWatchlist = (list) => {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+    if (STORAGE) {
+      STORAGE.setItem(STORAGE_KEY, JSON.stringify(list));
+      return;
+    }
   } catch (err) {
-    memoryWatchlist = list.slice();
+    // fallback below
   }
+  memoryWatchlist = list.slice();
 };
 
 const toggleWatchlist = (id) => {

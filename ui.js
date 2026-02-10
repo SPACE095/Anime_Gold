@@ -112,6 +112,10 @@ const renderDiscover = () => {
     const status = statusFilter.value;
     const era = eraFilter.value;
     let list = ANIME.filter((anime) => {
+      const genreLabels = anime.genres.map((genre) => GENRE_LABELS[genre] || "");
+      const typeLabel = TYPE_LABELS[anime.type] || "";
+      const statusLabel = STATUS_LABELS[anime.status] || "";
+      const eraLabel = ERA_LABELS[anime.era] || "";
       const haystack = [
         anime.title,
         AR_TITLES[anime.id] || "",
@@ -119,7 +123,11 @@ const renderDiscover = () => {
         anime.tagline,
         anime.description,
         ...(anime.tags || []),
-        ...anime.genres
+        ...anime.genres,
+        ...genreLabels,
+        typeLabel,
+        statusLabel,
+        eraLabel
       ]
         .join(" ")
         .toLowerCase();
