@@ -106,33 +106,13 @@ const renderDiscover = () => {
   if (params.get("genre")) genreFilter.value = params.get("genre");
 
   const applyFilters = () => {
-    const q = searchInput.value.trim().toLowerCase();
+    const q = normalizeText(searchInput.value);
     const genre = genreFilter.value;
     const type = typeFilter.value;
     const status = statusFilter.value;
     const era = eraFilter.value;
     let list = ANIME.filter((anime) => {
-      const genreLabels = anime.genres.map((genre) => GENRE_LABELS[genre] || "");
-      const typeLabel = TYPE_LABELS[anime.type] || "";
-      const statusLabel = STATUS_LABELS[anime.status] || "";
-      const eraLabel = ERA_LABELS[anime.era] || "";
-      const haystack = [
-        anime.title,
-        AR_TITLES[anime.id] || "",
-        anime.jp,
-        anime.tagline,
-        anime.description,
-        ...(anime.tags || []),
-        ...anime.genres,
-        ...genreLabels,
-        typeLabel,
-        statusLabel,
-        eraLabel
-      ]
-        .join(" ")
-        .toLowerCase();
-
-      if (q && !haystack.includes(q)) return false;
+      if (q && !(anime.searchText || "").includes(q)) return false;
       if (genre !== "all" && !anime.genres.includes(genre)) return false;
       if (type !== "all" && anime.type !== type) return false;
       if (status !== "all" && anime.status !== status) return false;

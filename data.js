@@ -73,6 +73,36 @@ const AR_TITLES = {
   "detective-conan": "المحقق كونان"
 };
 
+const normalizeText = (value) =>
+  String(value || "")
+    .toLowerCase()
+    .replace(/[إأآا]/g, "ا")
+    .replace(/ى/g, "ي")
+    .replace(/ؤ/g, "و")
+    .replace(/ئ/g, "ي")
+    .replace(/ة/g, "ه")
+    .replace(/[\u064b-\u065f]/g, "")
+    .replace(/[^a-z0-9\u0600-\u06ff]+/g, " ")
+    .trim();
+
+const buildSearchText = (anime) => {
+  const genreLabels = (anime.genres || []).map((genre) => GENRE_LABELS[genre] || genre);
+  const fields = [
+    anime.title,
+    AR_TITLES[anime.id] || "",
+    anime.jp,
+    anime.tagline,
+    anime.description,
+    ...(anime.tags || []),
+    ...(anime.genres || []),
+    ...genreLabels,
+    TYPE_LABELS[anime.type] || "",
+    STATUS_LABELS[anime.status] || "",
+    ERA_LABELS[anime.era] || ""
+  ];
+  return normalizeText(fields.join(" "));
+};
+
 const OFFICIAL_PLATFORMS = [
   {
     id: "crunchyroll",
@@ -626,7 +656,8 @@ const MEDIA_MAP = {
 const ANIME = ANIME_DATA.map((anime) => {
   const media = MEDIA_MAP[anime.id] || {};
   const poster = anime.poster || (media.trailerId ? getTrailerThumb(media.trailerId) : undefined);
-  return { ...anime, ...media, poster };
+  const record = { ...anime, ...media, poster };
+  return { ...record, searchText: buildSearchText(record) };
 });
 
 const byId = new Map(ANIME.map((anime) => [anime.id, anime]));
