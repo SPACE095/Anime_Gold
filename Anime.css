@@ -525,6 +525,8 @@ a {
   align-items: center;
   margin-top: 18px;
   color: var(--muted);
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .card {

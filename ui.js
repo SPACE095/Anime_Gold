@@ -100,13 +100,32 @@ const renderDiscover = () => {
   const sortFilter = document.getElementById("sortFilter");
   const resultCount = document.getElementById("resultCount");
   const resetFilters = document.getElementById("resetFilters");
+  const applySearch = document.getElementById("applySearch");
+  const normalize =
+    typeof normalizeText === "function"
+      ? normalizeText
+      : (value) => String(value || "").toLowerCase();
+
+  if (!searchInput || !genreFilter || !typeFilter || !statusFilter || !eraFilter || !sortFilter) {
+    return;
+  }
+
+  if (typeof ANIME === "undefined" || !Array.isArray(ANIME)) {
+    grid.innerHTML = `
+      <div class="empty-state">
+        <h3>تعذر تحميل مكتبة الأنمي</h3>
+        <p>تأكد من فتح الموقع عبر رابط GitHub Pages أو باستخدام Live Server محلي.</p>
+      </div>
+    `;
+    return;
+  }
 
   const params = new URLSearchParams(window.location.search);
   if (params.get("q")) searchInput.value = params.get("q");
   if (params.get("genre")) genreFilter.value = params.get("genre");
 
   const applyFilters = () => {
-    const q = normalizeText(searchInput.value);
+    const q = normalize(searchInput.value);
     const genre = genreFilter.value;
     const type = typeFilter.value;
     const status = statusFilter.value;
@@ -155,6 +174,14 @@ const renderDiscover = () => {
   [genreFilter, typeFilter, statusFilter, eraFilter, sortFilter].forEach((select) =>
     select.addEventListener("change", applyFilters)
   );
+
+  if (applySearch) {
+    applySearch.addEventListener("click", () => {
+      applyFilters();
+      const gridTop = grid.getBoundingClientRect().top + window.scrollY - 120;
+      window.scrollTo({ top: Math.max(gridTop, 0), behavior: "smooth" });
+    });
+  }
 
   if (resetFilters) {
     resetFilters.addEventListener("click", () => {
