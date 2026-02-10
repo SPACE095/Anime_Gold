@@ -147,7 +147,11 @@ const renderDiscover = () => {
         </div>
       `;
       const resetAlt = document.getElementById("resetFiltersAlt");
-      if (resetAlt) resetAlt.addEventListener("click", () => resetFilters?.click());
+      if (resetAlt) {
+        resetAlt.addEventListener("click", () => {
+          if (resetFilters) resetFilters.click();
+        });
+      }
     } else {
       grid.innerHTML = list
         .map((anime, index) => renderCard(anime, { delay: index * 0.03 }))

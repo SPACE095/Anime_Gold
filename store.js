@@ -1,14 +1,21 @@
-﻿const getWatchlist = () => {
+﻿let memoryWatchlist = [];
+
+const getWatchlist = () => {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
-    return stored ? JSON.parse(stored) : [];
+    if (stored) return JSON.parse(stored);
   } catch (err) {
-    return [];
+    return memoryWatchlist.slice();
   }
+  return [];
 };
 
 const saveWatchlist = (list) => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+  } catch (err) {
+    memoryWatchlist = list.slice();
+  }
 };
 
 const toggleWatchlist = (id) => {
