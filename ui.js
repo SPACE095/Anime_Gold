@@ -31,6 +31,10 @@ const renderPlaylistItem = (anime, activeId) => {
   `;
 };
 
+const markVisible = (root = document) => {
+  root.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
+};
+
 const updateWatchButtons = () => {
   const list = getWatchlist();
   document.querySelectorAll(".watch-toggle").forEach((button) => {
@@ -163,6 +167,7 @@ const renderDiscover = () => {
       grid.innerHTML = list
         .map((anime, index) => renderCard(anime, { delay: index * 0.03 }))
         .join("");
+      markVisible(grid);
     }
     if (resultCount) {
       resultCount.textContent = `${list.length} نتيجة`;
@@ -216,6 +221,7 @@ const renderWatchlist = () => {
   grid.innerHTML = items
     .map((anime, index) => renderCard(anime, { delay: index * 0.03, mode: "watchlist" }))
     .join("");
+  markVisible(grid);
 
   if (empty) {
     empty.classList.toggle("hidden", items.length > 0);
@@ -304,6 +310,7 @@ const renderDetail = () => {
     similarGrid.innerHTML = similar
       .map((item, index) => renderCard(item, { delay: index * 0.03 }))
       .join("");
+    markVisible(similarGrid);
   }
 };
 
